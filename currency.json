@@ -1,0 +1,74 @@
+
+{
+
+"baseCurrency": "USD",
+"date": "2022-09-24",
+"currencsies":[
+    {
+    "id": 1, 
+    "name": "AUD", 
+    "category": "Australian Dollar", 
+    "exchangeRate": 1.531863
+    },
+    {
+    "id": 2, 
+    "name": "CAD", 
+    "category": "Canadian Dollar", 
+    "exchangeRate": 1.36029
+    },
+    {
+    "id": 3, 
+    "name": "CLP", 
+    "category": "Chilean Peso", 
+    "exchangeRate": 950.662057
+    },
+    {
+    "id": 4, 
+    "name": "CNY", 
+    "category": "Chinese Yuan", 
+    "exchangeRate": 7.128404
+    },
+    {
+    "id": 5, 
+    "name": "EUR", 
+    "category": "Euro", 
+    "exchangeRate": 1.03203
+    },
+    {
+    "id": 6, 
+    "name": "GBP", 
+    "category": "British Pound Sterling", 
+    "exchangeRate": 0.920938
+    },
+    {
+    "id": 7, 
+    "name": "INR", 
+    "category": "Indian Rupee", 
+    "exchangeRate": 81.255504
+    },
+    {
+    "id": 8, 
+    "name": "JPY", 
+    "category": "Japanese Yen", 
+    "exchangeRate": 143.376504
+    },
+    {
+    "id": 9, 
+    "name": "RUB", 
+    "category": "Russian Ruble", 
+    "exchangeRate": 57.875038
+    },
+    {
+    "id": 10, 
+    "name": "USD", 
+    "category": "United States Dollar", 
+    "exchangeRate": 1
+    },
+    {
+    "id": 11, 
+    "name": "ZAR", 
+    "category": "South African Rand", 
+    "exchangeRate": 17.92624
+}
+]
+}

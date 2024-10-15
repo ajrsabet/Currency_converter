@@ -3,28 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rock Paper Scissors</title>
+    <title>Currency Calculator</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<!-- <body>
     <div class="container">
-        <h1>Rock, Paper, Scissors</h1>
-        <div class="choices">
-            <button id="rock" class="choice">Rock</button>
-            <button id="paper" class="choice">Paper</button>
-            <button id="scissors" class="choice">Scissors</button>
-        </div>
-        <div class="result">
-            <p id="result-text"></p>
-        </div>
-        <div class="score">
-            <t>User Score:  </t>
-            <t id="user-score"></t>
-            <t>Computer Score:  </t>
-            <t id="comp-score"></t>
-        </div>
-        <button id="reset">Reset</button>
+        <h1>Currency Calculator</h1>
+        <form autocomplete="off" action="/action_page.php">
+            <div class="autocomplete" style="width:300px;">
+              <input id="myInput" type="text" name="myCountry" placeholder="Country">
+            </div>
+            <input type="submit">
+          </form>
     </div>
     <script src="script.js"></script>
+</body>
+</html> -->
+
+
+<body>
+
+<h2>Autocomplete</h2>
+
+
+<div class="container">
+    <div class="box">
+        <p>Country 1:</p>
+        <form autocomplete="off" action="/action_page.php">
+            <div class="autocomplete" style="width:300px;">
+                <input id="myInput1" type="text" name="myCountry1" placeholder="Country">
+            </div>
+            <input type="submit">
+        </form>
+    </div>
+    
+    <div class="box">
+        <p>Country 2:</p>
+        <form autocomplete="off" action="/action_page.php">
+            <div class="autocomplete" style="width:300px;">
+                <input id="myInput2" type="text" name="myCountry2" placeholder="Country">
+            </div>
+            <input type="submit">
+        </form>
+    </div>
+    
+</div>
+<script src="script.js"></script>
+
 </body>
 </html>

@@ -1,81 +1,59 @@
-*, *::before, *::after {
-    box-sizing: border-box;
-  }
-  
-  body {
-    font-size: 16px;
-    font-family: Arial;
-    background-color: #F7FAFC;
-  }
-  
-  button,
-  input {
-    font-size: 1em;
-    font-family: Arial;
-  }
-  
-  label {
-    font-weight: 900;
-  }
-  
-  input {
-    border: 2px solid transparent;
-    border-radius: 6px;
-    padding: .4em .8em;
-    background-color: #E2E8F0;
-  }
-  
-  input:focus {
-    background-color: #FFFFFF;
-    border: 2px solid #CBD5E0;
-    outline: 0;
-  }
-  
-  button {
-    background: #8A33FE;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    color: #FFFFFF;
-    padding: 10px;
-    box-shadow: inset 0 -3px 0 0 #4801A5;
-  }
-  
-  button:active {
-    box-shadow: none;
-    transform: translateY(3px);
-  }
-  
-  table {
-    width: 100%;
-  }
-  
-  .error {
-    color: red;
-  }
-  
-  .wrapper {
-    margin: 0 auto;
-    max-width: 800px;
-    text-align: center;
-  }
-  
-  .total {
-    font-size: 150%;
-  }
-  
-  form {
-    margin-top: 25px;
-  }
-  
-  .transactions {
-    text-align: left;
-    max-height: 300px;
-    overflow: auto;
-    width: 90%;
-    margin: 0 auto;
-  }
-  
-  .transaction-buttons {
-    margin-top: 25px;
-  }
+* { box-sizing: border-box; }
+body {
+  font: 16px Arial;
+}
+.autocomplete {
+  /*the container must be positioned relative:*/
+  position: relative;
+  display: inline-block;
+}
+input {
+  border: 1px solid transparent;
+  background-color: #f1f1f1;
+  padding: 10px;
+  font-size: 16px;
+}
+input[type=text] {
+  background-color: #f1f1f1;
+  width: 100%;
+}
+input[type=submit] {
+  background-color: DodgerBlue;
+  color: #fff;
+}
+.autocomplete-items {
+  position: absolute;
+  border: 1px solid #d4d4d4;
+  border-bottom: none;
+  border-top: none;
+  z-index: 99;
+  /*position the autocomplete items to be the same width as the container:*/
+  top: 100%;
+  left: 0;
+  right: 0;
+}
+.autocomplete-items div {
+  padding: 10px;
+  cursor: pointer;
+  background-color: #fff;
+  border-bottom: 1px solid #d4d4d4;
+}
+.autocomplete-items div:hover {
+  /*when hovering an item:*/
+  background-color: #e9e9e9;
+}
+.autocomplete-active {
+  /*when navigating through the items using the arrow keys:*/
+  background-color: DodgerBlue !important;
+  color: #ffffff;
+}
+
+.container {
+  display: flex; /* Enable flexbox */
+}
+.box {
+  background-color: lightblue;
+  padding: 20px;
+  margin: 10px;
+  flex: 1; /* Makes each item take equal width */
+}
