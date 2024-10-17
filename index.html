@@ -6,46 +6,49 @@
     <title>Currency Calculator</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-<!-- <body>
-    <div class="container">
-        <h1>Currency Calculator</h1>
-        <form autocomplete="off" action="/action_page.php">
-            <div class="autocomplete" style="width:300px;">
-              <input id="myInput" type="text" name="myCountry" placeholder="Country">
-            </div>
-            <input type="submit">
-          </form>
-    </div>
-    <script src="script.js"></script>
-</body>
-</html> -->
 
 
 <body>
 
-<h2>Autocomplete</h2>
+<h1>Currency Calculator</h1>
 
+
+<br><br>
 
 <div class="container">
     <div class="box">
-        <p>Country 1:</p>
+        <p>Currency 1:</p>
         <form autocomplete="off" action="/action_page.php">
             <div class="autocomplete" style="width:300px;">
-                <input id="myInput1" type="text" name="myCountry1" placeholder="Country">
+                <input id="currencyName1" type="text" name="myCountry1" placeholder="Country">
             </div>
-            <input type="submit">
+            <!-- <input type="submit"> -->
         </form>
+        <br>
+        <div>Exchange Rate: </div>
+        <div id="exchangeRate1">0.00</div>
+        <br>
+        <!-- Number input field -->
+        <input id="amount1" type="number" placeholder="Enter a number" style="width: 300px;">
     </div>
     
     <div class="box">
-        <p>Country 2:</p>
+        <p>Currency 2:</p>
         <form autocomplete="off" action="/action_page.php">
             <div class="autocomplete" style="width:300px;">
-                <input id="myInput2" type="text" name="myCountry2" placeholder="Country">
+                <input id="currencyName2" type="text" name="myCountry2" placeholder="Country">
             </div>
-            <input type="submit">
+            <!-- <input type="submit"> -->
         </form>
+        <br>
+        <div>Exchange Rate: </div>
+        <div id="exchangeRate2">0.00</div>
+        <br>
+        <!-- Number input field -->
+        <input id="amount2" type="number" placeholder="Enter a number" style="width: 300px;">
     </div>
+    <div class="container">
+
     
 </div>
 <script src="script.js"></script>
