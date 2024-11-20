@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,49 +10,151 @@
 
 
 <body>
+    <header class="navbar">
+        <div class="navbar-left">
+            <h1>Currency Calculator</h1>
+        </div>
+        <nav>
+            <a class="navbar-links" href="#">Send Money</a>
+            <a class="navbar-links" href="#">Converter</a>
+            <a class="navbar-links" href="#">Currency API</a>
+            <a class="navbar-links" href="#">Tools</a>
+        </nav>
+        <div class="navbar-right">
+            <a href="#" class="sign-in">Sign In</a>
+            <a href="#" class="register">Register</a>
+        </div>
+    </header>
 
-<h1>Currency Calculator</h1>
+    <main>
 
-
-<br><br>
-
-<div class="container">
-    <div class="box">
-        <p>Currency 1:</p>
-        <form autocomplete="off" action="/action_page.php">
-            <div class="autocomplete" style="width:300px;">
-                <input id="currencyName1" type="text" name="myCountry1" placeholder="Country">
+        <section class="converter-section">
+            <h2>Currency Converter</h2>
+            <div class="tabs">
+                <button class="tab active">Convert</button>
+                <button class="tab">Send</button>
+                <button class="tab">Charts</button>
+                <button class="tab">Alerts</button>
             </div>
-            <!-- <input type="submit"> -->
-        </form>
-        <br>
-        <div>Exchange Rate: </div>
-        <div id="exchangeRate1">0.00</div>
-        <br>
-        <!-- Number input field -->
-        <input id="amount1" type="number" placeholder="Enter a number" style="width: 300px;">
-    </div>
-    
-    <div class="box">
-        <p>Currency 2:</p>
-        <form autocomplete="off" action="/action_page.php">
-            <div class="autocomplete" style="width:300px;">
-                <input id="currencyName2" type="text" name="myCountry2" placeholder="Country">
+            <div class="converter-box">
+                <form id="converter-form">
+                    <div class="input-group">
+                        <label for="amount">Amount</label>
+                        <input type="text" id="amount" placeholder="$1.00">
+                    </div>
+                    <div class="input-group">
+                        <label for="from-currency">From</label>
+                        <input id="currencyName1" type="text" name="myCountry1" placeholder="Country">
+                    </div>
+                    <button type="button" class="swap-btn">⇄</button>
+                    <div class="input-group">
+                        <label for="to-currency">To</label>
+                        <input id="currencyName1" type="text" name="myCountry1" placeholder="Country">
+                    </div>
+                </form>
+                <div class="conversion-result">
+                    <p><strong>1.00 US Dollar = </strong><span class="result-value">1.0255728 Euros</span></p>
+                    <p class="exchange-rate-note">1 EUR = 0.974020 USD</p>
+                </div>
             </div>
-            <!-- <input type="submit"> -->
-        </form>
-        <br>
-        <div>Exchange Rate: </div>
-        <div id="exchangeRate2">0.00</div>
-        <br>
-        <!-- Number input field -->
-        <input id="amount2" type="number" placeholder="Enter a number" style="width: 300px;">
-    </div>
-    <div class="container">
+        </section>
 
-    
-</div>
-<script src="script.js"></script>
+        <section class="conversion-tables">
+            <div class="table-box">
+                <h3>Convert US Dollar to Euro</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>USD</th>
+                            <th>EUR</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1 USD</td>
+                            <td>1.02667 EUR</td>
+                        </tr>
+                        <tr>
+                            <td>5 USD</td>
+                            <td>5.13337 EUR</td>
+                        </tr>
+                        <!-- Add more rows dynamically -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="table-box">
+                <h3>Convert Euro to US Dollar</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>EUR</th>
+                            <th>USD</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1 EUR</td>
+                            <td>0.974019 USD</td>
+                        </tr>
+                        <tr>
+                            <td>5 EUR</td>
+                            <td>4.87009 USD</td>
+                        </tr>
+                        <!-- Add more rows dynamically -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
 
+
+
+
+
+
+
+
+
+
+
+
+        <!--             
+                    <div class="box">
+                        <p>Currency 1:</p>
+                        <form autocomplete="off" action="/action_page.php">
+                            <div class="autocomplete" style="width:300px;">
+                                <input id="currencyName1" type="text" name="myCountry1" placeholder="Country">
+                            </div>
+                            
+                        </form>
+                        <br>
+                        <div>Exchange Rate: </div>
+                        <div id="exchangeRate1">0.00</div>
+                        <br>
+        
+                        <input id="amount1" type="number" placeholder="Enter a number" style="width: 300px;">
+                    </div>
+        
+                    <div class="box">
+                        <p>Currency 2:</p>
+                        <form autocomplete="off" action="/action_page.php">
+                            <div class="autocomplete" style="width:300px;">
+                                <input id="currencyName2" type="text" name="myCountry2" placeholder="Country">
+                            </div>
+        
+                        </form>
+                        <br>
+                        <div>Exchange Rate: </div>
+                        <div id="exchangeRate2">0.00</div>
+                        <br>
+        
+                        <input id="amount2" type="number" placeholder="Enter a number" style="width: 300px;">
+                    </div>
+                    <div class="container">
+                    </section> -->
+
+    </main>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="script.js"></script>
 </body>
+
 </html>
