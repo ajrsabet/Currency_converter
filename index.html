@@ -21,8 +21,8 @@
             <a class="navbar-links" href="#">Tools</a>
         </nav>
         <div class="navbar-right">
-            <a href="#" class="sign-in">Sign In</a>
-            <a href="#" class="register">Register</a>
+            <a href="#" class="sign-in button">Sign In</a>
+            <a href="#" class="register button">Register</a>
         </div>
     </header>
 
@@ -39,119 +39,31 @@
             <div class="converter-box">
                 <form id="converter-form">
                     <div class="input-group">
-                        <label for="amount">Amount</label>
-                        <input type="text" id="amount" placeholder="$1.00">
+                        <label for="amount-input">Amount</label>
+                        <input type="number" id="amount-input" class="amount1" placeholder="$1.00" autocomplete="off">
                     </div>
                     <div class="input-group">
-                        <label for="from-currency">From</label>
-                        <input id="currencyName1" type="text" name="myCountry1" placeholder="Country">
+                        <label for="currencyName1">From</label>
+                        <input id="currencyName1" type="text" name="myCountry1" placeholder="Currency"
+                            autocomplete="off">
                     </div>
-                    <button type="button" class="swap-btn">⇄</button>
+                    <button type="button" id="swap-btn" class="swap-btn">⇄</button>
                     <div class="input-group">
-                        <label for="to-currency">To</label>
-                        <input id="currencyName1" type="text" name="myCountry1" placeholder="Country">
+                        <label for="currencyName2">To</label>
+                        <input id="currencyName2" type="text" name="myCountry2" placeholder="Currency"
+                            autocomplete="off">
                     </div>
+                    <button type="button" id="convert" class="button">Convert</button>
                 </form>
-                <div class="conversion-result">
-                    <p><strong>1.00 US Dollar = </strong><span class="result-value">1.0255728 Euros</span></p>
-                    <p class="exchange-rate-note">1 EUR = 0.974020 USD</p>
+                <div id="conversion-result" class="conversion-result">
+                    <!-- generate results from script -->
+                    </p>
                 </div>
             </div>
         </section>
-
         <section class="conversion-tables">
-            <div class="table-box">
-                <h3>Convert US Dollar to Euro</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>USD</th>
-                            <th>EUR</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1 USD</td>
-                            <td>1.02667 EUR</td>
-                        </tr>
-                        <tr>
-                            <td>5 USD</td>
-                            <td>5.13337 EUR</td>
-                        </tr>
-                        <!-- Add more rows dynamically -->
-                    </tbody>
-                </table>
-            </div>
-            <div class="table-box">
-                <h3>Convert Euro to US Dollar</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>EUR</th>
-                            <th>USD</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1 EUR</td>
-                            <td>0.974019 USD</td>
-                        </tr>
-                        <tr>
-                            <td>5 EUR</td>
-                            <td>4.87009 USD</td>
-                        </tr>
-                        <!-- Add more rows dynamically -->
-                    </tbody>
-                </table>
-            </div>
+            <!-- generate tables from script -->
         </section>
-
-
-
-
-
-
-
-
-
-
-
-
-        <!--             
-                    <div class="box">
-                        <p>Currency 1:</p>
-                        <form autocomplete="off" action="/action_page.php">
-                            <div class="autocomplete" style="width:300px;">
-                                <input id="currencyName1" type="text" name="myCountry1" placeholder="Country">
-                            </div>
-                            
-                        </form>
-                        <br>
-                        <div>Exchange Rate: </div>
-                        <div id="exchangeRate1">0.00</div>
-                        <br>
-        
-                        <input id="amount1" type="number" placeholder="Enter a number" style="width: 300px;">
-                    </div>
-        
-                    <div class="box">
-                        <p>Currency 2:</p>
-                        <form autocomplete="off" action="/action_page.php">
-                            <div class="autocomplete" style="width:300px;">
-                                <input id="currencyName2" type="text" name="myCountry2" placeholder="Country">
-                            </div>
-        
-                        </form>
-                        <br>
-                        <div>Exchange Rate: </div>
-                        <div id="exchangeRate2">0.00</div>
-                        <br>
-        
-                        <input id="amount2" type="number" placeholder="Enter a number" style="width: 300px;">
-                    </div>
-                    <div class="container">
-                    </section> -->
-
     </main>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="script.js"></script>
