@@ -16,6 +16,76 @@
 let countryObj1 = [];
 let countryObj2 = [];
 let inputValue = 1;
+let apiCallLimit = 20;
+let currencyObj = {}
+
+// API connection
+async function APICall(callType, currency1, currency2, amount) {
+  const apiKey = "3c5cac55b8d753b024fe3326"; // Replace with your actual API key
+  // let url;
+
+  // if (callType == 1) {
+  //   // return conversion amount
+  //   url = `https://v6.exchangerate-api.com/v6/${apiKey}/pair/${currency1}/${currency2}/${amount}`;
+  // } else 
+  if (callType == 2) {
+    // return conversion rate between two currencies
+    url = `https://v6.exchangerate-api.com/v6/${apiKey}/pair/${currency1}/${currency2}`;
+    // } else if (callType == 3) {
+    //   // return 
+    //   url = `https://v6.exchangerate-api.com/v6/${apiKey}/latest/${currency1}`;
+  } else {
+    // return 
+    url = `https://v6.exchangerate-api.com/v6/${apiKey}/codes`;
+  }
+
+  // limit api calls to 10 per session for testing to preserve API request quota and  
+  // prevent run-away api calls
+  if (apiCallLimit > 0) {
+    apiCallLimit--;
+    console.log(`Api call limit remaining: ${apiCallLimit}`);
+
+    await fetch(url)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        // if (callType == 1) {// return conversion amount
+
+        // } else 
+        if (callType == 2) { // return conversion rate between two currencies
+          let rate = data.conversion_rate;
+          let rateRev = 1 / data.conversion_rate;
+          let calcAmount = (inputValue * rate).toFixed(2);
+
+          populateData(rate, rateRev, calcAmount);  // Calculate and populate for Currency 1
+          // } else if (callType == 3) { // return
+
+        } else {
+          currencyObj = { "items": [] };
+
+          for (let i = 0; i < data.supported_codes.length; i++) {
+            currencyObj.items[i] = { "symbol": data.supported_codes[i][0], "name": `${data.supported_codes[i][1]} (${data.supported_codes[i][0]})` }
+          }
+          autocomplete(document.getElementById("currencyName1"), currencyObj);
+          autocomplete(document.getElementById("currencyName2"), currencyObj);
+        }
+
+        return data.result;
+
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+
+  } else {
+    alert("You have exceeded the API call limit, refresh the page and try again")
+  }
+}
+
 //////////////////////////////////////// Auto Complete //////////////////////////////////
 function autocomplete(inp, currencyObject) {
   var currentFocus;
@@ -119,29 +189,23 @@ function autocomplete(inp, currencyObject) {
 }
 
 //////////////////////////////////////// calculate amount //////////////////////////////////
-function calculateAmount(inputElement, currencyObject) {
+function convertBtn(inputElement, currencyObject) {
   inputElement.addEventListener("click", function (e) {
     // get amount input by user
-    inputValue = $("#amount-input").val();  // Get the numeric value entered
-    console.log(countryObj1.name);
-    console.log(countryObj2.name);
+    inputValue = Number($("#amount-input").val());  // Get the numeric value entered
 
-    if (!isNaN(inputValue)) {
+    if (isNaN(inputValue)) {
+      console.log("input value was NaN " + inputValue);
+      console.log("input value was NaN " + typeof inputValue);
       inputValue = 1;
-      console.log("was NaN " + inputValue);
+    } else if (inputValue == 0) {
+      inputValue = 1;
+      console.log("input value cannot be 0, default to 1");
     }
-    let rate, rateRev, calcAmount;
 
     if (countryObj1.name && countryObj2.name && !isNaN(inputValue)) {
-      console.log("why is this happening???");
-
       try {
-        rate = countryObj2.exchangeRate / countryObj1.exchangeRate;
-        rateRev = countryObj1.exchangeRate / countryObj2.exchangeRate;
-        calcAmount = (inputValue * rate).toFixed(2);
-
-        populateData(rate, rateRev, calcAmount);  // Calculate and populate for Currency 1
-
+        APICall(2, countryObj1.symbol, countryObj2.symbol)
       } catch (error) {
         console.log(error);
         alert("Error, Try again")
@@ -161,7 +225,6 @@ function switchCurrencies(inputElement, currencyObject) {
 
 /////////////////////////////////////// populate data ///////////////////////////////////
 function populateData(rate, rateRev, calcAmount) {
-
   try {
     const $conversionResult = $("#conversion-result");
     $conversionResult.empty();
@@ -217,31 +280,10 @@ const createTable = (fromCurrency, toCurrency, rate, isReversed) => {
   $conversionTables.append($tableBox);
 };
 
-
-
-////////////////////////////// currency data: //////////////////////////////
-const currencyObj = {
-  "items": [
-    { "id": 0, "symbol": "", "name": "", "exchangeRate": 0.00 },
-    { "id": 1, "symbol": "CAD", "name": "Canadian Dollar (CAD)", "exchangeRate": 1.36029 },
-    { "id": 2, "symbol": "CLP", "name": "Chilean Peso (CLP)", "exchangeRate": 950.662057 },
-    { "id": 3, "symbol": "CNY", "name": "Chinese Yuan (CNY)", "exchangeRate": 7.128404 },
-    { "id": 4, "symbol": "EUR", "name": "Euro (EUR)", "exchangeRate": 1.03203 },
-    { "id": 5, "symbol": "GBP", "name": "British Pound Sterling (GBP)", "exchangeRate": 0.920938 },
-    { "id": 6, "symbol": "INR", "name": "Indian Rupee (INR)", "exchangeRate": 81.255504 },
-    { "id": 7, "symbol": "JPY", "name": "Japanese Yen (JPY)", "exchangeRate": 143.376504 },
-    { "id": 8, "symbol": "RUB", "name": "Russian Ruble (RUB)", "exchangeRate": 57.875038 },
-    { "id": 9, "symbol": "USD", "name": "US Dollar (USD)", "exchangeRate": 1 },
-    { "id": 10, "symbol": "ZAR", "name": "South African Rand (ZAR)", "exchangeRate": 17.92624 },
-    { "id": 11, "symbol": "AUD", "name": "Australian Dollar (AUD)", "exchangeRate": 1.531863 }
-  ]
-}
-
-
 // initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:
 document.addEventListener("DOMContentLoaded", function () {
-  autocomplete(document.getElementById("currencyName1"), currencyObj);
-  autocomplete(document.getElementById("currencyName2"), currencyObj);
-  calculateAmount(document.getElementById("convert"), currencyObj);
+  APICall(0) // moved 
+
+  convertBtn(document.getElementById("convert"), currencyObj);
   switchCurrencies(document.getElementById("swap-btn"), currencyObj);
 })
