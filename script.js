@@ -20,22 +20,14 @@ let apiCallLimit = 20;
 let currencyObj = {}
 
 // API connection
-async function APICall(callType, currency1, currency2, amount) {
+async function APICall(currency1, currency2) {
   const apiKey = "3c5cac55b8d753b024fe3326"; // Replace with your actual API key
-  // let url;
 
-  // if (callType == 1) {
-  //   // return conversion amount
-  //   url = `https://v6.exchangerate-api.com/v6/${apiKey}/pair/${currency1}/${currency2}/${amount}`;
-  // } else 
-  if (callType == 2) {
+  if (currency1 && currency2) {
     // return conversion rate between two currencies
     url = `https://v6.exchangerate-api.com/v6/${apiKey}/pair/${currency1}/${currency2}`;
-    // } else if (callType == 3) {
-    //   // return 
-    //   url = `https://v6.exchangerate-api.com/v6/${apiKey}/latest/${currency1}`;
   } else {
-    // return 
+    // return currency list
     url = `https://v6.exchangerate-api.com/v6/${apiKey}/codes`;
   }
 
@@ -53,34 +45,26 @@ async function APICall(callType, currency1, currency2, amount) {
         return response.json();
       })
       .then((data) => {
-        // if (callType == 1) {// return conversion amount
 
-        // } else 
-        if (callType == 2) { // return conversion rate between two currencies
+        if (currency1 && currency2) { // return conversion rate between two currencies
           let rate = data.conversion_rate;
           let rateRev = 1 / data.conversion_rate;
           let calcAmount = (inputValue * rate).toFixed(2);
+          populateData(rate, rateRev, calcAmount);
 
-          populateData(rate, rateRev, calcAmount);  // Calculate and populate for Currency 1
-          // } else if (callType == 3) { // return
-
-        } else {
+        } else { // compile currency list
           currencyObj = { "items": [] };
-
           for (let i = 0; i < data.supported_codes.length; i++) {
             currencyObj.items[i] = { "symbol": data.supported_codes[i][0], "name": `${data.supported_codes[i][1]} (${data.supported_codes[i][0]})` }
           }
           autocomplete(document.getElementById("currencyName1"), currencyObj);
           autocomplete(document.getElementById("currencyName2"), currencyObj);
         }
-
         return data.result;
-
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
-
   } else {
     alert("You have exceeded the API call limit, refresh the page and try again")
   }
@@ -189,37 +173,54 @@ function autocomplete(inp, currencyObject) {
 }
 
 //////////////////////////////////////// calculate amount //////////////////////////////////
-function convertBtn(inputElement, currencyObject) {
+function convertBtn(inputElement) {
   inputElement.addEventListener("click", function (e) {
     // get amount input by user
     inputValue = Number($("#amount-input").val());  // Get the numeric value entered
-
-    if (isNaN(inputValue)) {
-      console.log("input value was NaN " + inputValue);
-      console.log("input value was NaN " + typeof inputValue);
-      inputValue = 1;
-    } else if (inputValue == 0) {
-      inputValue = 1;
-      console.log("input value cannot be 0, default to 1");
-    }
-
-    if (countryObj1.name && countryObj2.name && !isNaN(inputValue)) {
-      try {
-        APICall(2, countryObj1.symbol, countryObj2.symbol)
-      } catch (error) {
-        console.log(error);
-        alert("Error, Try again")
-      }
-    } else {
-      alert("You must enter both currencies")
-    }
+    submitHndl();
   });
 }
 
+///////////////////////////////////// Submit handle function //////////////////////////////
+function submitHndl() {
+  if (isNaN(inputValue)) {
+    console.log("input value was NaN " + inputValue);
+    console.log("input value was NaN " + typeof inputValue);
+    inputValue = 1;
+  } else if (inputValue == 0) {
+    inputValue = 1;
+    console.log("input value cannot be 0, default to 1");
+  }
+
+  if (countryObj1.name && countryObj2.name && !isNaN(inputValue)) {
+    try {
+      APICall(countryObj1.symbol, countryObj2.symbol)
+    } catch (error) {
+      console.log(error);
+      alert("Error, Try again")
+    }
+  } else {
+    alert("You must enter both currencies")
+  }
+}
+
 /////////////////////////////////////// swap countries ////////////////////////////////////
-function switchCurrencies(inputElement, currencyObject) {
+function switchCurrencies(inputElement) {
   inputElement.addEventListener("click", function (e) {
-    alert("reverse button was clicked!")
+    // alert("reverse button was clicked!")
+    if (countryObj1 && countryObj2) {
+      let tempCountry = countryObj1;
+      countryObj1 = countryObj2;
+      countryObj2 = tempCountry;
+
+      // I can't figure out why this isn't changing the text in the input fields.
+      $("currencyName1").val(countryObj1.name);
+      $("currencyName2").val(countryObj2.name);
+
+      submitHndl();
+    } else {
+      alert("You need two countries entered before using this button")
+    }
   })
 }
 
@@ -282,8 +283,8 @@ const createTable = (fromCurrency, toCurrency, rate, isReversed) => {
 
 // initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:
 document.addEventListener("DOMContentLoaded", function () {
-  APICall(0) // moved 
+  APICall() // moved autocomplete list even listener
 
-  convertBtn(document.getElementById("convert"), currencyObj);
-  switchCurrencies(document.getElementById("swap-btn"), currencyObj);
+  convertBtn(document.getElementById("convert"));
+  switchCurrencies(document.getElementById("swap-btn"));
 })
